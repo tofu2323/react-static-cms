@@ -9,5 +9,17 @@
 <body>
 <!-- Include the script that builds the page and powers Netlify CMS -->
 <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+<script>
+    if (window.netlifyIdentity) {
+        // When a user logs in with the Netlify Identity widget, an access token directs to the site homepage. In order to complete the login and get back to the CMS, redirect the user back to the /admin/ path.
+        window.netlifyIdentity.on('init', user => {
+            if (!user) {
+                window.netlifyIdentity.on('login', () => {
+                    document.location.href = '/admin/';
+                });
+            }
+        });
+    }
+</script>
 </body>
 </html>
